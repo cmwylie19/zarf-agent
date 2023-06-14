@@ -1,17 +1,26 @@
 # Initial POC
-- Zarf Agent could be an `initContainer` in `deploy/zarf-docker-registry` so that it can be ready when the Zarf State/Private-registry secrets are created so their saved to state.
 
-- If not an `initContainer` it could call the kube-apiserver directly or use `@kubernetes/client-node` (which may bloat) to get the secrets.
+_The goal is to implement the Zarf Agent in Pepr utilizing dependency injection to loosely couple hook implementations of objects like pods and flux._ **For the initial vertical,the focus is on  pod logic.**
 
-- When `po`,`deploy`,`rs`,`ds`,`sts`,`job`,`cj` is created, Zarf Agent must be able to mutate the `imagePullSecrets` and `image` to use the internal registry.
+_High Level Overview_:
+* Zarf Agent needs to be deployed before Zarf deploys artifacts.
 
-**initial high level flow**
-* Get Zarf State from secret
-  * Store Zarf State in Class
-* Mutate image with internal registry image (w/ Zarf State)
-* Add imagePullSecret for internal registry (w/ `private-registry` secret)
-* get `private-registry` from zarf ns and deploy it to application namespaces (talk through :6443 or `K8s` client - worried about bloat)
+  * Pods - Agent must mutate the `imagePullSecrets` and `image` to use the internal registry.
+
+    * `imagePullSecrets` - The agent will recreate `private-registry` secret in the pod namespace before adding it to the pod.
+
+**Checklist**  
+
+Step 1:
+- [ ] Get Zarf State from secret
+- [ ] Store Zarf State in Class
+
+Step 2:
+- [ ] Get Pod without ignore labels/annotations
+- [ ] Deploy imagePullSecret to pod namespace
+- [ ] Mutate pod with imagePullSecret
+- [ ] Mutate pod with internal registry image
 
 
-## Additional RBAC
-- Create secrets in any namespace (imagePullSecret deployment to target namespace)
+_715mg CD-ROM is the goal_
+
