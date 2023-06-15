@@ -14,8 +14,9 @@ _High Level Overview_:
 **Checklist**  
 
 Step 1: (Initialization Phase)
-- [ ] Get Zarf State from secret
-- [ ] Store Zarf State in Class
+- [ ] Get Zarf State from secret and store in state
+- [ ] Get private-registry secret and store in state
+
 
 Step 2: (Pre-Mutation Phase)
 - [ ] Get Pod without ignore labels/annotations
@@ -31,3 +32,4 @@ _715mb CD-ROM is the goal_
 
 
 [Flow Diagram](https://docs.google.com/drawings/d/1nGiG0keutXLvfbiW1_0LZNI2Gphfda63RTnUhz2DKVQ/edit?usp=sharing)
+![Flow Diagram](https://docs.google.com/drawings/d/e/2PACX-1vS-EeJyxbtN_NygaOSc0m2x9vDnBxQkm-e9IstQ761J2ztKSA_G4SF6Fq1NNqBDdBvuT9FEVoGG7dmS/pub?w=962&h=344)
