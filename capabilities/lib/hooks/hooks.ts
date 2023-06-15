@@ -5,6 +5,10 @@ export default class Hooks {
 
     hasIgnoreLabels(): boolean {
         return this.request.Raw.metadata?.annotations?.["zarf.dev/agent"] === "ignore" ? true : false;
+    }
 
+    async patchKubernetesObject() {
+        // TODO
+        
     }
 }
