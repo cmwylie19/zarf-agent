@@ -1,26 +1,33 @@
 # Initial POC
 
-_The goal is to implement the Zarf Agent in Pepr utilizing dependency injection to loosely couple hook implementations of objects like pods and flux._ **For the initial vertical,the focus is on  pod logic.**
+_The goal is to implement the Zarf Agent in Pepr utilizing dependency injection to loosely couple hook implementations of objects like pods and flux._  
+
+**For the initial vertical,the focus is on pod logic.**
 
 _High Level Overview_:
 * Zarf Agent needs to be deployed before Zarf deploys artifacts.
 
   * Pods - Agent must mutate the `imagePullSecrets` and `image` to use the internal registry.
 
-    * `imagePullSecrets` - The agent will recreate `private-registry` secret in the pod namespace before adding it to the pod.
+    * `imagePullSecrets` - The agent will recreate `private-registry` secret in the pod namespace before mutating the pod.
 
 **Checklist**  
 
-Step 1:
+Step 1: (Initialization Phase)
 - [ ] Get Zarf State from secret
 - [ ] Store Zarf State in Class
 
-Step 2:
+Step 2: (Pre-Mutation Phase)
 - [ ] Get Pod without ignore labels/annotations
-- [ ] Deploy imagePullSecret to pod namespace
+- [ ] Deploy private-registry secret to pod namespace
+
+Step 3: (Mutation Phase)
 - [ ] Mutate pod with imagePullSecret
 - [ ] Mutate pod with internal registry image
+- [ ] Annotate pod `zarg-agent: patched`
 
 
-_715mg CD-ROM is the goal_
+_715mb CD-ROM is the goal_
 
+
+[Flow Diagram](https://docs.google.com/drawings/d/1nGiG0keutXLvfbiW1_0LZNI2Gphfda63RTnUhz2DKVQ/edit?usp=sharing)
